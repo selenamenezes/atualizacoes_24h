@@ -5,26 +5,19 @@ import win32com.client as win32
 import traceback
 from datetime import datetime
 import locale
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def atualizar_mrp():
     os.system("taskkill /im excel.exe /f")
     sleep(3)
     pasta = r"C:\BD\MRP_PLANEJAMENTO"
-    pasta_centro_atualizacao = r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\CENTRO_ATUALIZACOES\MRP_PLANEJAMENTO"
+    pasta_centro_atualizacao = os.getenv('PASTA_REP_DASH_MRP')
     base_mrp_plan_v2 = r"C:\BD\MRP_PLANEJAMENTO\BASE_MRP_PLANEJAMENTO_V2.xlsx"
     mrp_plan_v2 = r"C:\BD\MRP_PLANEJAMENTO\MRP_PLAN_V2.xlsm"
 
-    MRPS = [base_mrp_plan_v2, mrp_plan_v2]
-
-    arquivos = [r"c:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\ME3M.TXT",
-                r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\MB52.txt",
-                r"c:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\ME2M_PC.txt",
-                r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\MB51_ENTRADA_CD_2026.txt",
-                r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\MB51_ENTREGA_EFET_2026.txt",
-                r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\ZMM94_MRP_PLAN.TXT",
-                r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\ZMM208.TXT",
-                r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\BASE_ZMM017.TXT",
-                r"C:\BD\BASES\MRP PLAN\ZPS047_MRP.TXT"]
+    arquivos = os.getenv('LISTA_ARQUIVOS_MRP')
 
     consultas_base_mrp = [
             "Consulta - ZMM94", "Consulta - ZMMT0003", "Consulta - ZMM208", "Consulta - MB52",

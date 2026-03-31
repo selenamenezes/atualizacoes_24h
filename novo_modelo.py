@@ -12,15 +12,20 @@ from automacoes.atualizar_mrp import atualizar_mrp
 from automacoes.atualizar_cobertura import atualizar_cobertura
 import locale
 import pathlib
+from dotenv import load_dotenv
 
-FULL_BASES_TESTE_PT1 = r"\\Client\C$\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\LOGÍSTICA\PERFORMANCE\SCRIPTS\teste_22.10_pt1.vbs"
-FULL_BASES_TESTE_PT2 = r"\\Client\C$\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\LOGÍSTICA\PERFORMANCE\SCRIPTS\teste_22.10_pt2.vbs"
-BASES_PERIODICAS = r"\\Client\C$\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\LOGÍSTICA\PERFORMANCE\SCRIPTS\BASES_PERIODICAS.vbs"
-MED_CCS = r"\\Client\C$\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\LOGÍSTICA\PERFORMANCE\SCRIPTS\medidores_ccs.vbs"
-MB52_r3 = r"\\Client\C$\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\LOGÍSTICA\PERFORMANCE\SCRIPTS\mb52_r3.vbs"
-BASE_NF = r"\\Client\C$\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\LOGÍSTICA\PERFORMANCE\SCRIPTS\base_nf.vbs"
-BASE_MRP_PLAN_V2 = r"C:\BD\MRP_PLANEJAMENTO\BASE_MRP_PLANEJAMENTO_V2.xlsx"
-MRP_PLAN = r"C:\BD\MRP_PLANEJAMENTO\MRP_PLAN_V2.xlsm"
+load_dotenv()
+
+FULL_BASES_TESTE_PT1 = os.getenv('FULL_BASES_PT1')
+FULL_BASES_TESTE_PT2 = os.getenv('FULL_BASES_PT2')
+BASES_PERIODICAS = os.getenv('BASES_PERIODICAS')
+MED_CCS = os.getenv('MED_CCS')
+MB52_r3 = os.getenv('MB52_r3')
+BASE_NF = os.getenv('BASE_NF')
+BASE_MRP_PLAN_V2 = os.getenv('BASE_MRP_PLAN_V2')
+MRP_PLAN = os.getenv('MRP_PLAN')
+AMBIENTE_R3 = os.getenv('AMBIENTE_r3')
+AMBIENTE_CCS = os.getenv('AMBIENTE_CCS')
 
 def manter_ativo():
     ctypes.windll.kernel32.SetThreadExecutionState(0x80000002 | 0x00000001)
@@ -124,75 +129,36 @@ def verificar_janela(janela_aberta):
     except IndexError:
         print("erro ao abrir buscar janela")
 
-sisbase = [r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\MB52_SISBASE.TXT",
-           r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\ZMM94_SISBASE.TXT",
-           r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\MB51_CONSUMO_SISBASE.TXT"]
-
-cobertura = [r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\ME3M.TXT",
-             r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\BASE_ZMMT0003.txt",
-             r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\MB52.txt",
-             r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\ME2M_PC.TXT",
-             r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\BASE_ZMM94.TXT",
-             r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\ZMM208.TXT",
-             r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\BASE_ZMM017.TXT",
-             r"C:\BD\BASES\BASE_ZPS60.txt",
-             r"C:\BD\DASH_COBERTURA_PLANEJADO\BASES\ZPS047.txt"
-             ]
-
-concreto = [r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\BASE_ZMMT0003.txt",
-            r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\MB52.TXT",
-            r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\ME2M_PC.TXT",
-            r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\BASE_ZMM017.TXT"]
-
-planejamento = [r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\ME3M.TXT",
-                r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\MB52.txt",
-                r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\ME2M_PC.TXT",
-                r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\MB51_ENTREGA_EFET_2026.TXT", # ADICIONAR BASES DE 2026
-                r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\ZMM94_MRP_PLAN.TXT",
-                r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\MB51_ENTRADA_CD_2026.TXT",
-                r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\ZMM208.TXT",
-                r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\ZMMT0003.TXT",
-                r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\BASE_ZMM017.TXT"]
-
-estoque = [r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\MB52FULL.TXT",
-            r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\MB51_CONSUMO_ATUAL.TXT",
-            r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\MB51_ENTRADA_CD_ATUAL.TXT"]
-
-transito = [r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\ZMM94.TXT",
-            r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\MB52_TRANSITO.txt"]
-
-sucata = [r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\ZMM94.TXT",
-          r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\MB52_TRANSITO.txt"]
-
-medidores = [r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\DASH_MEDICAO\MB52_MED_AMARA.txt",
-             r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\DASH_MEDICAO\REL_EM_ESTOQUE_AMARA.txt",
-             r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\DASH_MEDICAO\REL_EM_ESTOQUE_OPER.txt"]
-
-nf = [r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\base_nf.txt"]
-
-geral_monitorada = r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste"
-pasta_sisbase = r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\ACOMPANHAMENTO_SISBASE"
-pasta_concreto = r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\DASH_COBERTURA_CONCRETO"
-pasta_cobertura = r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\DASH_COBERTURA"
-pasta_mrp_plan = r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\MRP_PLANEJAMENTO"
-pasta_sucata = r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\BASES POWER BI\DASH_SUCATA"
-pasta_transito = r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\BASES POWER BI\DASH_TRANSITO"
-pasta_estoque = r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\BASES POWER BI\EVOLUÇÃO DO ESTOQUE\BASES DIARIAS"
-pasta_medidor_bi = r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\BASES POWER BI\DASH MEDICAO"
-pasta_medidor_bi = r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\BASES POWER BI\DASH MEDICAO"
-pasta_mrp_plan_nuvem = r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\BASES POWER BI\MRP PLANEJAMENTO"
-pasta_concreto_bi = r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\BASES POWER BI\DASH_CONCRETO"
-pasta_bd_mrp = r"C:\BD\MRP_PLANEJAMENTO"
-me2m = [r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\ME2M_PC.TXT"]
-entregas_cif = [r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\LOGÍSTICA\MOVIMENTAÇÃO DE MATERIAIS\MRP_CONCRETO\ENTREGAS CIF.xlsx"]
-arquivos_especificos = [r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\CENTRO_ATUALIZACOES\MRP_PLANEJAMENTO\ZPS60_MRP.xlsx", r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\CENTRO_ATUALIZACOES\MRP_PLANEJAMENTO\BASE OBRAS PO.xlsx"]
-
-historico_zmm94 = r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\BASES POWER BI\DASH_TRANSITO\ZMM94"
-historico_mb52 = r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\BASES POWER BI\EVOLUÇÃO DO ESTOQUE\MB52"
-historico_rel_em = r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\BASES POWER BI\DASH MEDICAO\BASES"
-base_historico_mb52 = r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\mb52full.txt"
-base_historico_zmm94 = r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\ZMM94.txt"
-base_historico_rel_em = r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\DASH_MEDICAO\REL_EM_ESTOQUE_OPER.txt"
+sisbase = os.getenv('BASES_SISBASE')
+cobertura = os.getenv('BASES_COBERTURA')
+concreto = os.getenv('BASES_CONCRETO')
+planejamento = os.getenv('BASES_PLANEJAMENTO')
+estoque = os.getenv('BASES_ESTOQUE')
+transito = os.getenv('BASES_TRANSITO')
+sucata = os.getenv('BASES_SUCATA')
+medidores = os.getenv('BASES_MEDIDORES')
+nf = os.getenv('BASES_NF')
+geral_monitorada = os.getenv('GERAL_MONITORADA')
+pasta_sisbase = os.getenv('PASTA_SISBASE')
+pasta_concreto = os.getenv('PASTA_CONCRETO')
+pasta_cobertura = os.getenv('PASTA_COBERTURA')
+pasta_mrp_plan = os.getenv('PASTA_MRP_PLAN')
+pasta_sucata = os.getenv('PASTA_SUCATA')
+pasta_transito = os.getenv('PASTA_TRANSITO')
+pasta_estoque = os.getenv('PASTA_ESTOQUE')
+pasta_medidor_bi = os.getenv('PASTA_MEDIDOR_BI')
+pasta_mrp_plan_nuvem = os.getenv('PASTA_MRP_PLAN_NUVEM')
+pasta_concreto_bi = os.getenv('PASTA_CONCRETO_BI')
+pasta_bd_mrp = os.getenv('PASTA_BD_MRP')
+me2m = os.getenv('ME2M')
+entregas_cif = os.getenv('ENTREGAS_CIF')
+arquivos_especificos = os.getenv('ARQUIVOS_ESPECIFICOS')
+historico_zmm94 = os.getenv('HISTORICO_ZMM94')
+historico_mb52 = os.getenv('HISTORICO_MB52')
+historico_rel_em = os.getenv('HISTORICO_REL_EM')
+base_historico_mb52 = os.getenv('BASE_HISTORICO_MB52')
+base_historico_zmm94 = os.getnev('BASE_HISTORICO_ZMM94')
+base_historico_rel_em = os.getenv('BASE_HISTORICO_REL_EM')
 
 def separador_historico(base, destino):
     data_modif = os.path.getmtime(base)
@@ -256,7 +222,7 @@ def movimentar_periodicas():
 def movimentar_nf():
     separador(lista_arquivos=nf, pasta_destino=pasta_concreto_bi)
     separador(lista_arquivos=entregas_cif, pasta_destino=pasta_concreto_bi)
-    separador(lista_arquivos=entregas_cif, pasta_destino= r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\BASES POWER BI\DASH DE MOVIMENTAÇÕES")
+    separador(lista_arquivos=entregas_cif, pasta_destino= os.getenv('PASTA_NUVEM_DASH_MOVIMENTACAO'))
 
 def movimentar_bases_especificas(arquivos, pasta_mrp):
     separador(lista_arquivos=arquivos, pasta_destino=pasta_mrp)
@@ -266,7 +232,7 @@ def backup_mrp():
 
         arquivos_salvar = ['BASE_MRP_PLANEJAMENTO_V2.xlsx', 'MRP_PLAN_V2.xlsm']
         origem = rf'C:\BD\MRP_PLANEJAMENTO'
-        pasta_mrp = rf'C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\LOGÍSTICA\PLANEJAMENTO DE MATERIAIS\MRP_PLANEJAMENTO\MRP'
+        pasta_mrp = os.getenv('PASTA_MRP')
 
         ano_atual = datetime.now().strftime('%Y')
         mes = f"{datetime.now().strftime('%m')}. {datetime.now().strftime('%b').upper()}"
@@ -302,7 +268,7 @@ def backup_mrp():
 
 def sub_orig():
     c_origem = rf'C:\BD\MRP_PLANEJAMENTO'
-    c_destino = rf'C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\BASES POWER BI\DASH MRP PLANEJAMENTO'
+    c_destino = os.getenv('PASTA_DASH_MRP_NUVEM')
 
     arquivos_substituir = ['BASE_MRP_PLANEJAMENTO_V2.xlsx', 'MRP_PLAN_V2.xlsm']
 
@@ -315,7 +281,7 @@ def sub_orig():
         else:
             print(f"Arquivo {origem_} em {c_origem} não encontrado")
 
-    destino = rf"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\LOGÍSTICA\GERAL\BD\MRP_PLANEJAMENTO"
+    destino = os.getenv('PASTA_BD_MRP_NUVEM')
 
     for arquivo in arquivos_substituir:
         origem = os.path.join(c_origem, arquivo)
@@ -328,8 +294,8 @@ def sub_orig():
 
 def verificar_bases():
     try:
-        mb52 = pathlib.Path(r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\MB52.txt")
-        me2m = pathlib.Path(r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\REPOSITORIO\teste\ME2M_PC.txt")
+        mb52 = pathlib.Path(os.getenv('TXT_MB52'))
+        me2m = pathlib.Path(os.getenv('TXT_ME2M_PC'))
 
         mb52_data = datetime.fromtimestamp(mb52.stat().st_mtime).date()
         me2m_data = datetime.fromtimestamp(me2m.stat().st_mtime).date()
@@ -352,34 +318,34 @@ sistema_ativo.start()
 pyautogui.FAILSAFE = False
 
 
-schedule.every().day.at("07:30").do(lambda:extrair_sap(MB52_r3, '06.01'))
-schedule.every().day.at("07:50").do(lambda:extrair_sap(MED_CCS, '05.07'))
+schedule.every().day.at("07:30").do(lambda:extrair_sap(MB52_r3, AMBIENTE_R3))
+schedule.every().day.at("07:50").do(lambda:extrair_sap(MED_CCS, AMBIENTE_CCS))
 schedule.every().day.at("08:00").do(movimentar_medidores)
 
-schedule.every().day.at("08:25").do(lambda:extrair_sap(BASES_PERIODICAS, '06.01'))
+schedule.every().day.at("08:25").do(lambda:extrair_sap(BASES_PERIODICAS, AMBIENTE_R3))
 schedule.every().day.at("08:40").do(movimentar_periodicas)
 
-schedule.every().day.at("11:00").do(lambda:extrair_sap(BASES_PERIODICAS, '06.01'))
+schedule.every().day.at("11:00").do(lambda:extrair_sap(BASES_PERIODICAS, AMBIENTE_R3))
 schedule.every().day.at("11:30").do(movimentar_periodicas)
 
-schedule.every().day.at("13:00").do(lambda:extrair_sap(BASES_PERIODICAS, '06.01'))
+schedule.every().day.at("13:00").do(lambda:extrair_sap(BASES_PERIODICAS, AMBIENTE_R3))
 schedule.every().day.at("13:40").do(movimentar_periodicas)
 
-schedule.every().day.at("13:53").do(lambda:extrair_sap(BASE_NF, '06.01'))
+schedule.every().day.at("13:53").do(lambda:extrair_sap(BASE_NF, AMBIENTE_R3))
 schedule.every().day.at("14:20").do(lambda:movimentar_nf)
 
-schedule.every().day.at("15:00").do(lambda:extrair_sap(BASES_PERIODICAS, '06.01'))
+schedule.every().day.at("15:00").do(lambda:extrair_sap(BASES_PERIODICAS, AMBIENTE_R3))
 schedule.every().day.at("15:40").do(movimentar_periodicas)
 
-schedule.every().day.at("17:00").do(lambda:extrair_sap(BASES_PERIODICAS, '06.01'))
+schedule.every().day.at("17:00").do(lambda:extrair_sap(BASES_PERIODICAS, AMBIENTE_R3))
 schedule.every().day.at("17:40").do(movimentar_periodicas)
 
-schedule.every().day.at("18:00").do(lambda:extrair_sap(FULL_BASES_TESTE_PT1, '06.01'))
-schedule.every().day.at("19:10").do(lambda:extrair_sap(FULL_BASES_TESTE_PT2, '06.01'))
+schedule.every().day.at("18:00").do(lambda:extrair_sap(FULL_BASES_TESTE_PT1, AMBIENTE_R3))
+schedule.every().day.at("19:10").do(lambda:extrair_sap(FULL_BASES_TESTE_PT2, AMBIENTE_R3))
 schedule.every().day.at("19:15").do(verificar_bases)
 schedule.every().day.at("21:00").do(lambda:movimentar_full)
 
-schedule.every().day.at("21:10").do(lambda:extrair_sap(BASES_PERIODICAS, '06.01'))
+schedule.every().day.at("21:10").do(lambda:extrair_sap(BASES_PERIODICAS, AMBIENTE_R3))
 schedule.every().day.at("21:40").do(movimentar_periodicas)
 
 try:
