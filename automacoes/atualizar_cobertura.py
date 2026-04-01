@@ -3,21 +3,18 @@ import shutil
 from time import sleep
 import win32com.client as win32
 import traceback
-import datetime
-from dotenv import load_dotenv
-
-load_dotenv()
-
+from datetime import datetime
+import config
 def atualizar_cobertura():
 
     os.system("taskkill /im excel.exe /f")
 
     pasta = r"C:\BD\DASH_COBERTURA_PLANEJADO"
-    pasta_repositorio = os.getenv('PASTA_REP_DASH_COBERT')
+    pasta_repositorio = config.PASTA_REP_DASH_COBERT
     bd_cobertura = r"C:\BD\DASH_COBERTURA_PLANEJADO\BD_DASH_COBERTURA_PLANEJ_V5_beta.xlsx"
     dash_cobertura = r"C:\BD\DASH_COBERTURA_PLANEJADO\DASH DE COBERTURA DE MAT PLAN_V4.xlsx"
 
-    arquivos = os.getenv('ARQUIVOS_COBERTURA_BD')
+    arquivos = config.ARQUIVOS_COBERTURA_BD
 
     consultas_bd = ["Consulta - CARTEIRA_OBRAS", "Consulta - CARTEIRA ORDENS", "Consulta - MB52", "Consulta - ZMM94",
                     "Consulta - BASE_ZPS047", "Consulta - BASE_CONTRATOS", "Consulta - BASE_PEDIDOS", "Consulta - BASE_ZPS60_V2",
@@ -73,17 +70,17 @@ def atualizar_cobertura():
             excel.Quit()
             excel = None
 
-    separador(lista_arquivos=arquivos, pasta_destino=pasta)
-    separador(lista_arquivos=arquivos, pasta_destino=pasta_repositorio)
-    sleep(5)
+    #separador(lista_arquivos=arquivos, pasta_destino=pasta)
+    #separador(lista_arquivos=arquivos, pasta_destino=pasta_repositorio)
+    #sleep(5)
     atualizar(bd_cobertura, consultas_bd)
     atualizar(dash_cobertura, consultas_dash)
     sleep(10)
-    shutil.copy2(bd_cobertura, os.getenv('PASTA_REP_DASH_COBERT'))
-    shutil.copy2(dash_cobertura, os.getenv('PASTA_REP_DASH_COBERT'))
+    shutil.copy2(bd_cobertura, config.PASTA_REP_DASH_COBERT)
+    shutil.copy2(dash_cobertura, config.PASTA_REP_DASH_COBERT)
 
-    DESTINO_COBERTURA = os.getenv('DESTINO_COBERTURA')
-    
+    DESTINO_COBERTURA = config.DESTINO_COBERTURA
+
     data_atual = datetime.now()
     ano = data_atual.strftime("%Y")
     mes_num = data_atual.strftime("%m")
@@ -94,3 +91,5 @@ def atualizar_cobertura():
     destino_final = os.path.join(DESTINO_COBERTURA, ano, pasta_mes, dia)
     os.makedirs(destino_final, exist_ok=True)
     shutil.copy2(dash_cobertura, destino_final)
+
+atualizar_cobertura()

@@ -12,20 +12,18 @@ from automacoes.atualizar_mrp import atualizar_mrp
 from automacoes.atualizar_cobertura import atualizar_cobertura
 import locale
 import pathlib
-from dotenv import load_dotenv
+import config
 
-load_dotenv()
-
-FULL_BASES_TESTE_PT1 = os.getenv('FULL_BASES_PT1')
-FULL_BASES_TESTE_PT2 = os.getenv('FULL_BASES_PT2')
-BASES_PERIODICAS = os.getenv('BASES_PERIODICAS')
-MED_CCS = os.getenv('MED_CCS')
-MB52_r3 = os.getenv('MB52_r3')
-BASE_NF = os.getenv('BASE_NF')
-BASE_MRP_PLAN_V2 = os.getenv('BASE_MRP_PLAN_V2')
-MRP_PLAN = os.getenv('MRP_PLAN')
-AMBIENTE_R3 = os.getenv('AMBIENTE_r3')
-AMBIENTE_CCS = os.getenv('AMBIENTE_CCS')
+FULL_BASES_TESTE_PT1 = config.FULL_BASES_PT1
+FULL_BASES_TESTE_PT2 = config.FULL_BASES_PT2
+BASES_PERIODICAS = config.BASES_PERIODICAS
+MED_CCS = config.MED_CCS
+MB52_r3 = config.MB52_r3
+BASE_NF = config.BASE_NF
+BASE_MRP_PLAN_V2 = config.BASE_MRP_PLAN_V2
+MRP_PLAN = config.MRP_PLAN
+AMBIENTE_R3 = config.AMBIENTE_R3
+AMBIENTE_CCS = config.AMBIENTE_CCS
 
 def manter_ativo():
     ctypes.windll.kernel32.SetThreadExecutionState(0x80000002 | 0x00000001)
@@ -129,36 +127,36 @@ def verificar_janela(janela_aberta):
     except IndexError:
         print("erro ao abrir buscar janela")
 
-sisbase = os.getenv('BASES_SISBASE')
-cobertura = os.getenv('BASES_COBERTURA')
-concreto = os.getenv('BASES_CONCRETO')
-planejamento = os.getenv('BASES_PLANEJAMENTO')
-estoque = os.getenv('BASES_ESTOQUE')
-transito = os.getenv('BASES_TRANSITO')
-sucata = os.getenv('BASES_SUCATA')
-medidores = os.getenv('BASES_MEDIDORES')
-nf = os.getenv('BASES_NF')
-geral_monitorada = os.getenv('GERAL_MONITORADA')
-pasta_sisbase = os.getenv('PASTA_SISBASE')
-pasta_concreto = os.getenv('PASTA_CONCRETO')
-pasta_cobertura = os.getenv('PASTA_COBERTURA')
-pasta_mrp_plan = os.getenv('PASTA_MRP_PLAN')
-pasta_sucata = os.getenv('PASTA_SUCATA')
-pasta_transito = os.getenv('PASTA_TRANSITO')
-pasta_estoque = os.getenv('PASTA_ESTOQUE')
-pasta_medidor_bi = os.getenv('PASTA_MEDIDOR_BI')
-pasta_mrp_plan_nuvem = os.getenv('PASTA_MRP_PLAN_NUVEM')
-pasta_concreto_bi = os.getenv('PASTA_CONCRETO_BI')
-pasta_bd_mrp = os.getenv('PASTA_BD_MRP')
-me2m = os.getenv('ME2M')
-entregas_cif = os.getenv('ENTREGAS_CIF')
-arquivos_especificos = os.getenv('ARQUIVOS_ESPECIFICOS')
-historico_zmm94 = os.getenv('HISTORICO_ZMM94')
-historico_mb52 = os.getenv('HISTORICO_MB52')
-historico_rel_em = os.getenv('HISTORICO_REL_EM')
-base_historico_mb52 = os.getenv('BASE_HISTORICO_MB52')
-base_historico_zmm94 = os.getnev('BASE_HISTORICO_ZMM94')
-base_historico_rel_em = os.getenv('BASE_HISTORICO_REL_EM')
+sisbase = config.BASES_SISBASE
+cobertura = config.BASES_COBERTURA
+concreto = config.BASES_CONCRETO
+planejamento = config.BASES_PLANEJAMENTO
+estoque = config.BASES_ESTOQUE
+transito = config.BASES_TRANSITO
+sucata = config.BASES_SUCATA
+medidores = config.BASES_MEDIDORES
+nf = config.BASES_NF
+geral_monitorada = config.GERAL_MONITORADA
+pasta_sisbase = config.PASTA_SISBASE
+pasta_concreto = config.PASTA_CONCRETO
+pasta_cobertura = config.PASTA_COBERTURA
+pasta_mrp_plan = config.PASTA_MRP_PLAN
+pasta_sucata = config.PASTA_SUCATA
+pasta_transito = config.PASTA_TRANSITO
+pasta_estoque = config.PASTA_ESTOQUE
+pasta_medidor_bi = config.PASTA_MEDIDOR_BI
+pasta_mrp_plan_nuvem = config.PASTA_MRP_PLAN_NUVEM
+pasta_concreto_bi = config.PASTA_CONCRETO_BI
+pasta_bd_mrp = config.PASTA_BD_MRP
+me2m = config.ME2M
+entregas_cif = config.ENTREGAS_CIF
+arquivos_especificos = config.ARQUIVOS_ESPECIFICOS
+historico_zmm94 = config.HISTORICO_ZMM94
+historico_mb52 = config.HISTORICO_MB52
+historico_rel_em = config.HISTORICO_REL_EM
+base_historico_mb52 = config.BASE_HISTORICO_MB52
+base_historico_zmm94 = config.BASE_HISTORICO_ZMM94
+base_historico_rel_em = config.BASE_HISTORICO_REL_EM
 
 def separador_historico(base, destino):
     data_modif = os.path.getmtime(base)
@@ -222,7 +220,7 @@ def movimentar_periodicas():
 def movimentar_nf():
     separador(lista_arquivos=nf, pasta_destino=pasta_concreto_bi)
     separador(lista_arquivos=entregas_cif, pasta_destino=pasta_concreto_bi)
-    separador(lista_arquivos=entregas_cif, pasta_destino= os.getenv('PASTA_NUVEM_DASH_MOVIMENTACAO'))
+    separador(lista_arquivos=entregas_cif, pasta_destino= config.PASTA_NUVEM_DASH_MOVIMENTACAO)
 
 def movimentar_bases_especificas(arquivos, pasta_mrp):
     separador(lista_arquivos=arquivos, pasta_destino=pasta_mrp)
@@ -232,7 +230,7 @@ def backup_mrp():
 
         arquivos_salvar = ['BASE_MRP_PLANEJAMENTO_V2.xlsx', 'MRP_PLAN_V2.xlsm']
         origem = rf'C:\BD\MRP_PLANEJAMENTO'
-        pasta_mrp = os.getenv('PASTA_MRP')
+        pasta_mrp = config.PASTA_MRP
 
         ano_atual = datetime.now().strftime('%Y')
         mes = f"{datetime.now().strftime('%m')}. {datetime.now().strftime('%b').upper()}"
@@ -268,7 +266,7 @@ def backup_mrp():
 
 def sub_orig():
     c_origem = rf'C:\BD\MRP_PLANEJAMENTO'
-    c_destino = os.getenv('PASTA_DASH_MRP_NUVEM')
+    c_destino = config.PASTA_DASH_MRP_NUVEM
 
     arquivos_substituir = ['BASE_MRP_PLANEJAMENTO_V2.xlsx', 'MRP_PLAN_V2.xlsm']
 
@@ -281,7 +279,7 @@ def sub_orig():
         else:
             print(f"Arquivo {origem_} em {c_origem} não encontrado")
 
-    destino = os.getenv('PASTA_BD_MRP_NUVEM')
+    destino = config.PASTA_BD_MRP_NUVEM
 
     for arquivo in arquivos_substituir:
         origem = os.path.join(c_origem, arquivo)
@@ -294,8 +292,8 @@ def sub_orig():
 
 def verificar_bases():
     try:
-        mb52 = pathlib.Path(os.getenv('TXT_MB52'))
-        me2m = pathlib.Path(os.getenv('TXT_ME2M_PC'))
+        mb52 = pathlib.Path(config.TXT_MB52)
+        me2m = pathlib.Path(config.TXT_ME2M_PC)
 
         mb52_data = datetime.fromtimestamp(mb52.stat().st_mtime).date()
         me2m_data = datetime.fromtimestamp(me2m.stat().st_mtime).date()

@@ -5,19 +5,17 @@ import win32com.client as win32
 import traceback
 from datetime import datetime
 import locale
-from dotenv import load_dotenv
-
-load_dotenv()
+import automacoes.config as config
 
 def atualizar_mrp():
     os.system("taskkill /im excel.exe /f")
     sleep(3)
     pasta = r"C:\BD\MRP_PLANEJAMENTO"
-    pasta_centro_atualizacao = os.getenv('PASTA_REP_DASH_MRP')
+    pasta_centro_atualizacao = config.PASTA_REP_DASH_MRP
     base_mrp_plan_v2 = r"C:\BD\MRP_PLANEJAMENTO\BASE_MRP_PLANEJAMENTO_V2.xlsx"
     mrp_plan_v2 = r"C:\BD\MRP_PLANEJAMENTO\MRP_PLAN_V2.xlsm"
 
-    arquivos = os.getenv('LISTA_ARQUIVOS_MRP')
+    arquivos = config.LISTA_ARQUIVOS_MRP
 
     consultas_base_mrp = [
             "Consulta - ZMM94", "Consulta - ZMMT0003", "Consulta - ZMM208", "Consulta - MB52",
