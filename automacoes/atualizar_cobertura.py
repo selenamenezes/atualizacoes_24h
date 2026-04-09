@@ -1,10 +1,14 @@
+import locale
 import os
 import shutil
 from time import sleep
 import win32com.client as win32
 import traceback
 from datetime import datetime
-import config
+import automacoes.config as config
+
+locale.setlocale(locale.LC_TIME, "pt_BR")
+
 def atualizar_cobertura():
 
     os.system("taskkill /im excel.exe /f")
@@ -16,7 +20,7 @@ def atualizar_cobertura():
 
     arquivos = config.ARQUIVOS_COBERTURA_BD
 
-    consultas_bd = ["Consulta - CARTEIRA_OBRAS", "Consulta - CARTEIRA ORDENS", "Consulta - MB52", "Consulta - ZMM94",
+    consultas_bd = ["Consulta - BASE_MATERIAIS", "Consulta - CARTEIRA_OBRAS", "Consulta - CARTEIRA ORDENS", "Consulta - MB52", "Consulta - ZMM94",
                     "Consulta - BASE_ZPS047", "Consulta - BASE_CONTRATOS", "Consulta - BASE_PEDIDOS", "Consulta - BASE_ZPS60_V2",
                     "Consulta - BASE_ORÇAMENTO", "Consulta - PORTE DE OBRA", "Consulta - T_DEMANDA_EPS", 
                     "Consulta - T_DEMANDA_ORDENS_V2",
@@ -71,13 +75,10 @@ def atualizar_cobertura():
             excel = None
 
     #separador(lista_arquivos=arquivos, pasta_destino=pasta)
-    #separador(lista_arquivos=arquivos, pasta_destino=pasta_repositorio)
-    #sleep(5)
+    sleep(5)
     atualizar(bd_cobertura, consultas_bd)
     atualizar(dash_cobertura, consultas_dash)
     sleep(10)
-    shutil.copy2(bd_cobertura, config.PASTA_REP_DASH_COBERT)
-    shutil.copy2(dash_cobertura, config.PASTA_REP_DASH_COBERT)
 
     DESTINO_COBERTURA = config.DESTINO_COBERTURA
 
@@ -91,5 +92,3 @@ def atualizar_cobertura():
     destino_final = os.path.join(DESTINO_COBERTURA, ano, pasta_mes, dia)
     os.makedirs(destino_final, exist_ok=True)
     shutil.copy2(dash_cobertura, destino_final)
-
-atualizar_cobertura()

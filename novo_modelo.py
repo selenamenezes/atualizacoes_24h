@@ -12,7 +12,7 @@ from automacoes.atualizar_mrp import atualizar_mrp
 from automacoes.atualizar_cobertura import atualizar_cobertura
 import locale
 import pathlib
-import config
+import automacoes.config as config
 
 FULL_BASES_TESTE_PT1 = config.FULL_BASES_PT1
 FULL_BASES_TESTE_PT2 = config.FULL_BASES_PT2
@@ -21,6 +21,7 @@ MED_CCS = config.MED_CCS
 MB52_r3 = config.MB52_r3
 BASE_NF = config.BASE_NF
 BASE_MRP_PLAN_V2 = config.BASE_MRP_PLAN_V2
+COBERTURA_FIT = config.COBERTURA_FIT
 MRP_PLAN = config.MRP_PLAN
 AMBIENTE_R3 = config.AMBIENTE_R3
 AMBIENTE_CCS = config.AMBIENTE_CCS
@@ -316,24 +317,24 @@ sistema_ativo.start()
 pyautogui.FAILSAFE = False
 
 
-schedule.every().day.at("07:30").do(lambda:extrair_sap(MB52_r3, AMBIENTE_R3))
-schedule.every().day.at("07:50").do(lambda:extrair_sap(MED_CCS, AMBIENTE_CCS))
-schedule.every().day.at("08:00").do(movimentar_medidores)
+#schedule.every().day.at("07:30").do(lambda:extrair_sap(MB52_r3, AMBIENTE_R3))
+#schedule.every().day.at("07:50").do(lambda:extrair_sap(MED_CCS, AMBIENTE_CCS))
+#schedule.every().day.at("08:00").do(movimentar_medidores)
 
-schedule.every().day.at("08:25").do(lambda:extrair_sap(BASES_PERIODICAS, AMBIENTE_R3))
-schedule.every().day.at("08:40").do(movimentar_periodicas)
+#schedule.every().day.at("08:25").do(lambda:extrair_sap(BASES_PERIODICAS, AMBIENTE_R3))
+#schedule.every().day.at("08:40").do(movimentar_periodicas)
 
-schedule.every().day.at("11:00").do(lambda:extrair_sap(BASES_PERIODICAS, AMBIENTE_R3))
-schedule.every().day.at("11:30").do(movimentar_periodicas)
+#schedule.every().day.at("11:00").do(lambda:extrair_sap(BASES_PERIODICAS, AMBIENTE_R3))
+#schedule.every().day.at("11:30").do(movimentar_periodicas)
 
-schedule.every().day.at("13:00").do(lambda:extrair_sap(BASES_PERIODICAS, AMBIENTE_R3))
-schedule.every().day.at("13:40").do(movimentar_periodicas)
+#schedule.every().day.at("13:00").do(lambda:extrair_sap(BASES_PERIODICAS, AMBIENTE_R3))
+#schedule.every().day.at("13:40").do(movimentar_periodicas)
 
-schedule.every().day.at("13:53").do(lambda:extrair_sap(BASE_NF, AMBIENTE_R3))
-schedule.every().day.at("14:20").do(lambda:movimentar_nf)
+#schedule.every().day.at("13:53").do(lambda:extrair_sap(BASE_NF, AMBIENTE_R3))
+#schedule.every().day.at("14:20").do(lambda:movimentar_nf)
 
-schedule.every().day.at("15:00").do(lambda:extrair_sap(BASES_PERIODICAS, AMBIENTE_R3))
-schedule.every().day.at("15:40").do(movimentar_periodicas)
+#schedule.every().day.at("15:00").do(lambda:extrair_sap(BASES_PERIODICAS, AMBIENTE_R3))
+#schedule.every().day.at("15:40").do(movimentar_periodicas)
 
 schedule.every().day.at("17:00").do(lambda:extrair_sap(BASES_PERIODICAS, AMBIENTE_R3))
 schedule.every().day.at("17:40").do(movimentar_periodicas)
@@ -346,9 +347,10 @@ schedule.every().day.at("21:00").do(lambda:movimentar_full)
 schedule.every().day.at("21:10").do(lambda:extrair_sap(BASES_PERIODICAS, AMBIENTE_R3))
 schedule.every().day.at("21:40").do(movimentar_periodicas)
 
+schedule.every().day.at("21:50").do(lambda:extrair_sap(COBERTURA_FIT, AMBIENTE_R3))
 try:
-    schedule.every().day.at("21:30").do(atualizar_cobertura)
-    schedule.every().day.at("04:00").do(lambda:movimentar_bases_especificas(arquivos=arquivos_especificos, pasta_mrp=pasta_bd_mrp))
+    schedule.every().day.at("22:30").do(atualizar_cobertura)
+    #schedule.every().day.at("04:00").do(lambda:movimentar_bases_especificas(arquivos=arquivos_especificos, pasta_mrp=pasta_bd_mrp))
     schedule.every().day.at("04:20").do(atualizar_mrp) 
     schedule.every().day.at("06:00").do(backup_mrp)
     schedule.every().day.at("06:10").do(sub_orig)

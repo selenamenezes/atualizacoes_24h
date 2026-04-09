@@ -81,7 +81,6 @@ def atualizar_mrp():
                 print(f"Erro ao copiar {caminho_arquivo}: {e}")
 
     separador(lista_arquivos=arquivos, pasta_destino=pasta)
-    separador(lista_arquivos=arquivos, pasta_destino=pasta_centro_atualizacao)
     atualizar(base_mrp_plan_v2, consultas_base_mrp)
     atualizar(mrp_plan_v2, consultas_mrp_plan)
     sleep(10)
