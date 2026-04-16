@@ -74,7 +74,7 @@ def atualizar_cobertura():
             excel.Quit()
             excel = None
 
-    #separador(lista_arquivos=arquivos, pasta_destino=pasta)
+    separador(lista_arquivos=arquivos, pasta_destino=pasta)
     sleep(5)
     atualizar(bd_cobertura, consultas_bd)
     atualizar(dash_cobertura, consultas_dash)
