@@ -27,7 +27,7 @@ def atualizar_cobertura():
                     "Consulta - T_COBERTURA_PROJETOS"
                     ]
 
-    consultas_dash = ["Consulta - T_COBERTURA_PROJETOS", "Consulta - T_DEMANDA_EPS", "Consulta - CARTEIRA DE OBRAS", "Consulta - T_DEMANDA_EPS_GERAL",
+    consultas_dash = ["Consulta - T_DEMANDA_ORDENS_V2", "Consulta - T_COBERTURA_PROJETOS", "Consulta - T_DEMANDA_EPS", "Consulta - CARTEIRA DE OBRAS", "Consulta - T_DEMANDA_EPS_GERAL",
                     "Consulta - T_DEMANDA_EPS_CONGELADA", "Consulta - ENTREGAS DE CONCRETOS", "Consulta - BASE_ZPS047", "Consulta - T_ORÇAMENTO_ORDENS",
                     "Consulta - BASE_MB52", "Consulta - Ações-Obs", "Consulta - BASE_ZMM94", "Consulta - BASE AÇÕES"]
 

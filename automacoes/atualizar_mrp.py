@@ -21,8 +21,8 @@ def atualizar_mrp():
             "Consulta - ZMM94", "Consulta - ZMMT0003", "Consulta - ZMM208", "Consulta - MB52",
             "Consulta - BASE_CONTRATOS", "Consulta - BASE_PEDIDOS", "Consulta - ESTOQUE_MED_NOVO",
             "Consulta - BASE_MATERIAIS", "Consulta - BASE_MRP", "Consulta - BASE_DEPOSITOS",
-            "Consulta - ZMM098", "Consulta - BASE_ZPS047", "Consulta - BASE_ZPS60_V2",
-            "Consulta - BASE OBRAS_PO_PLA", "Consulta - BASE_MRP_CONCRETO", "Consulta - ZMM017",
+            "Consulta - ZMM098", "Consulta - BASE OBRAS_PO_PLA", "Consulta - BASE_ZPS047", "Consulta - BASE_ZPS60_V2",
+            "Consulta - BASE_MRP_CONCRETO", "Consulta - ZMM017",
             "Consulta - MB51_ENTREGA_EFET_2026", "Consulta - MB51_ENTRADA_CD_2026",
             "Consulta - BASE_MRP_TELECOM"
         ]
