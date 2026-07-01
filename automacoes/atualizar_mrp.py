@@ -31,8 +31,7 @@ def atualizar_mrp():
             'Consulta - BASE_MRP', 'Consulta - BASE_MRP_CONCRETO', 'Consulta - BASE_PEDIDOS',
             'Consulta - BASE_CONTRATOS', 'Consulta - BASE_MB52', 'Consulta - ANÁLISE DE CONTRATOS',
             'Consulta - BASE_FILTRO_PEDIDOS', 'Consulta - BASE_FILTRO_CONTRATOS',
-            'Consulta - ESTOQUE OPERAÇÃO', 'Consulta - OBS', 'Consulta - BASE_ZPS60_V2',
-            'Consulta - RESUMO MB52', 'Consulta - CONSUMO_12_MESES'
+            'Consulta - BASE_ZPS60_V2', 'Consulta - CONSUMO_12_MESES'
         ]
     
 

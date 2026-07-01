@@ -45,11 +45,13 @@ def atualizar_cobertura():
 
     def atualizar(planilha, consultas):
         excel = win32.DispatchEx("Excel.Application")
+        excel.DisplayAlerts = False
         
         wb = None
         try:
             wb = excel.Workbooks.Open(planilha)
             print(f"Atualizando: {os.path.basename(planilha)}")
+
             for consulta in consultas:
                 print(f"Atualizando Consulta: {consulta}")
                 try:
@@ -64,10 +66,30 @@ def atualizar_cobertura():
                 except Exception as e:
                     print(f"Erro ao atualizar '{consulta}': {e}")
                     print(traceback.format_exc())
+
+            if os.path.basename(planilha).upper() == "DASH DE COBERTURA DE MAT PLAN_V4.xlsx":
+                try:
+                    print("Atualizando Tabela Dinâmica específica do DASH...")
+
+                    ws = wb.Worksheets("RESUMO ITENS CRÍTICOS")
+                    pivot = ws.PivotTables("Tabela dinâmica1")
+
+                    pivot.PivotCache().Refresh()
+                    pivot.RefreshTable()
+
+                    print("\tTabela Dinâmica 'Tabela dinâmica1' atualizada com sucesso!")
+
+                except Exception as e:
+                    print("Erro ao atualizar a Tabela Dinâmica do DASH:")
+                    print(e)
+                    print(traceback.format_exc())
+
             wb.Close(SaveChanges=1)
+
         except Exception as e:
             print(f"Erro ao abrir/atualizar planilha {planilha}: {e}")
             print(traceback.format_exc())
+
         finally:
             if wb:
                 wb = None
