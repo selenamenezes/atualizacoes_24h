@@ -214,11 +214,7 @@ def verificar_bases():
 
 # agendamentos
 def configurar_agendamentos():
-    schedule.every().day.at("20:00").do(
-        lambda: extrair_sap(config.SCRIPT_60_47, AMBIENTE_R3)
-    )
-
-    schedule.every().day.at("14:32").do(atualizar_cobertura)
+    schedule.every().day.at("00:00").do(atualizar_cobertura)
     schedule.every().day.at("04:00").do(atualizar_mrp)
     schedule.every().day.at("06:40").do(backup_mrp)
     schedule.every().day.at("06:45").do(atualizar_bases_nuvem)

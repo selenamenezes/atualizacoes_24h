@@ -1,4 +1,9 @@
+# Configs e caches (não versionar)
 config.py
+bibliotecas.txt
+automacoes/__pycache__/
+automacoes/*/__pycache__/
+automacoes/config.py
+automacoes/config_paths.py
 */__pycache__/
 __pycache__/
-bibliotecas.txt
