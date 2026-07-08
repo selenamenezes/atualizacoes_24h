@@ -14,6 +14,7 @@ def atualizar_mrp():
     pasta_centro_atualizacao = config.PASTA_REP_DASH_MRP
     base_mrp_plan_v2 = r"C:\BD\MRP_PLANEJAMENTO\BASE_MRP_PLANEJAMENTO_V2.xlsx"
     mrp_plan_v2 = r"C:\BD\MRP_PLANEJAMENTO\MRP_PLAN_V2.xlsm"
+    mrps = [mrp_plan_v2]
 
     arquivos = config.LISTA_ARQUIVOS_MRP
 
@@ -83,3 +84,4 @@ def atualizar_mrp():
     atualizar(base_mrp_plan_v2, consultas_base_mrp)
     atualizar(mrp_plan_v2, consultas_mrp_plan)
     sleep(10)
+    separador(lista_arquivos=mrps, pasta_destino=r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\LOGÍSTICA\PLANEJAMENTO DE MATERIAIS\MRP_PLANEJAMENTO\MRP")

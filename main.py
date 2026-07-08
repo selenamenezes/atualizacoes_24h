@@ -55,9 +55,9 @@ def abrir_sap():
     esperar(300, "abrindo SAP...")
 
 
-def focar_janela(titulo_parcial):
+def focar_janela(titulo):
     for title in gw.getAllTitles():
-        if titulo_parcial.lower() in title.lower():
+        if titulo.lower() in title.lower():
             win = gw.getWindowsWithTitle(title)[0]
             if win.isMinimized:
                 win.restore()
@@ -211,13 +211,22 @@ def verificar_bases():
     except Exception as e:
         print(f"Erro verificação: {e}")
 
+def movimentar_bases():
+    try:
+        shutil.copy2(r"C:\BD\MRP_PLANEJAMENTO\MRP_PLAN_V2.xlsm", r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\LOGÍSTICA\PLANEJAMENTO DE MATERIAIS\MRP_PLANEJAMENTO\MRP")
+        shutil.copy2(r"C:\BD\DASH_COBERTURA_PLANEJADO\DASH DE COBERTURA DE MAT PLAN_V4.xlsx", r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\LOGÍSTICA\CONTROLES E INDICADORES LOG\DASH DE COBERTURA DA CARTEIRA DE OBRAS")
+        print("bases movidas com sucesso")
+    except Exception as e:
+        print(f"erro ao movimentar as bases: {e}")
 
 # agendamentos
 def configurar_agendamentos():
-    schedule.every().day.at("00:00").do(atualizar_cobertura)
+    schedule.every().day.at("11:50").do(atualizar_cobertura)
     schedule.every().day.at("04:00").do(atualizar_mrp)
     schedule.every().day.at("06:40").do(backup_mrp)
     schedule.every().day.at("06:45").do(atualizar_bases_nuvem)
+    schedule.every().day.at("07:00").do(movimentar_bases)
+    
 
 
 # main

@@ -114,3 +114,5 @@ def atualizar_cobertura():
     destino_final = os.path.join(DESTINO_COBERTURA, ano, pasta_mes, dia)
     os.makedirs(destino_final, exist_ok=True)
     shutil.copy2(dash_cobertura, destino_final)
+    shutil.copy2(dash_cobertura, r"C:\Users\b621314\OneDrive - IBERDROLA S.A\USO INTERNO - NULG\LOGÍSTICA\CONTROLES E INDICADORES LOG\DASH DE COBERTURA DA CARTEIRA DE OBRAS")
+
